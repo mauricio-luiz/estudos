@@ -6,7 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Dominios\Usuarios\UsuarioAdaptadorInterface;
 use App\Dominios\Usuarios\Usuarios;
-use App\Http\Requests\StoreUsuario;
+use App\Http\Requests\UsuarioFormRequest;
 use App\Models\User;
 use Exception;
 
@@ -26,7 +26,7 @@ class UsuarioController extends Controller
     }
 
     /**
-     * Display a listing of the resource.
+     * Exibi a listagem deste recurso
      *
      * @return \Illuminate\Http\Response
      */
@@ -45,7 +45,7 @@ class UsuarioController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
+     * Mostra o formulario para criar um novo recurso
      *
      * @return \Illuminate\Http\Response
      */
@@ -55,15 +55,15 @@ class UsuarioController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Armazena um recurso recem-criado no armazenamento.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param App\Http\Requests\UsuarioFormRequest $request
      * @return \Illuminate\Http\Response
      */
-    public function store(StoreUsuario $request)
+    public function store(UsuarioFormRequest $request)
     {
         try{
-            $request->persitir();
+            $request->persitiRequesicao();
             return response()
                 ->json([
                     'status' => true,
@@ -79,7 +79,7 @@ class UsuarioController extends Controller
     }
 
     /**
-     * Display the specified resource.
+     * Exibe o recurso especificado.
      *
      * @param  int  $id
      * @return \Illuminate\Http\Response
@@ -90,7 +90,7 @@ class UsuarioController extends Controller
     }
 
     /**
-     * Show the form for editing the specified resource.
+     * Mostra o formulário para editar o recurso especificado.
      *
      * @param  int  $id
      * @return \Illuminate\Http\Response
@@ -101,25 +101,38 @@ class UsuarioController extends Controller
     }
 
     /**
-     * Update the specified resource in storage.
+     * Atualize o recurso especificado no armazenamento.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param App\Http\Requests\UsuarioFormRequest $request
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(UsuarioFormRequest $request, int $id)
     {
-        //
+        try{
+            $usuario = $request->atualizaRequisicaoPorId($id);
+            return response()
+                ->json([
+                    'status' => true,
+                    'mensagem' => 'Usuario atualizado com sucesso',
+                    'usuario' => $usuario->paraArray()
+                ], 200);
+        }catch(Exception $e){
+            return response()
+                ->json([
+                    'status' => false,
+                    'mensagem' => "Erro ao criar usuario {$e->getMessage()}",
+                ], 400);
+        }
     }
 
     /**
-     * Remove the specified resource from storage.
+     * Remova o recurso especificado do armazenamento.
      *
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(int $id)
     {
-        dd("here");
     }
 }

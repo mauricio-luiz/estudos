@@ -70,7 +70,7 @@ class UserControllerTest extends TestCase
      *
      * @return void
      */
-    public function testStore()
+    public function testPersistirDados()
     {
         $usuarioMock = factory(User::class)->make();
 
@@ -91,5 +91,37 @@ class UserControllerTest extends TestCase
                     'status' => true,
                     'mensagem' => 'Usuario criado com sucesso'
         ]);
+    }
+
+    public function testAtualizarDados()
+    {
+        $usuarioMock = factory(User::class)->create();
+
+        $usuario = [
+            'nome' => 'Novo nome',
+            'email' => 'email@email.com',
+            'password' => '123456',
+            'ramal' => '7890',
+            'status' => false
+        ];
+
+        $response = $this->withHeaders([
+            'X-Header' => 'Value',
+        ])->json('PUT', "/usuarios/{$usuarioMock->id}",
+            [
+                'nome'     => $usuario['nome'],
+                'email'    => $usuario['email'],
+                'password' => $usuario['password'],
+                'ramal'    => $usuario['ramal'],
+                'status'   => $usuario['status']
+            ]
+        );
+
+        $response->assertStatus(200)
+                ->assertJson([
+                    'status' => true,
+                    'mensagem' => 'Usuario atualizado com sucesso',
+                    'usuario' => $usuario
+                ]);
     }
 }

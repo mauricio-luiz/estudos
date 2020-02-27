@@ -55,7 +55,6 @@ class Usuario implements UsuarioAdaptadorInterface{
 
     /**
      * Lida com retorno do repositorio do usuario
-     *
      * @return UsuarioRepositorio
      */
     public function repositorio() : UsuarioRepositorio
@@ -64,7 +63,7 @@ class Usuario implements UsuarioAdaptadorInterface{
     }
 
     /**
-     *
+     * Lidar com o retorno do atributo nome
      * @return  string
      */
     public function getNome() : string
@@ -73,8 +72,8 @@ class Usuario implements UsuarioAdaptadorInterface{
     }
 
     /**
-     *
-     * @param  string  $name  Lidar com o nome
+     * Lidar com o inicio do atributo nome
+     * @param  string  $name
      * @return self
      */
     public function setNome(string $nome) : Usuario
@@ -84,7 +83,7 @@ class Usuario implements UsuarioAdaptadorInterface{
     }
 
     /**
-     *
+     * Lidar com o retorno do atributo email
      * @return  string
      */
     public function getEmail() : string
@@ -93,8 +92,8 @@ class Usuario implements UsuarioAdaptadorInterface{
     }
 
     /**
-     *
-     * @param  string  $email  Lidar com email
+     * Lidar com o inicio do atributo email
+     * @param  string  $email
      * @return  self
      */
     public function setEmail(string $email) : Usuario
@@ -104,7 +103,7 @@ class Usuario implements UsuarioAdaptadorInterface{
     }
 
     /**
-     *
+     * Lidar com o retorno do atributo password
      * @return  string
      */
     public function getPassword() : string
@@ -113,8 +112,8 @@ class Usuario implements UsuarioAdaptadorInterface{
     }
 
     /**
-     *
-     * @param  string  $password  Lidar com password
+     * Lidar com o inicio do atributo password
+     * @param  string  $password
      * @return  self
      */
     public function setPassword(string $password) : Usuario
@@ -124,7 +123,7 @@ class Usuario implements UsuarioAdaptadorInterface{
     }
 
     /**
-     *
+     * Lidar com o retorno do atributo ramal
      * @return  integer
      */
     public function getRamal() : string
@@ -133,8 +132,8 @@ class Usuario implements UsuarioAdaptadorInterface{
     }
 
     /**
-     *
-     * @param  integer  $ramal  Lidar com o ramal
+     * Lidar com o inicio do atributo ramal
+     * @param  integer  $ramal
      * @return  self
      */
     public function setRamal(string $ramal) : Usuario
@@ -144,7 +143,7 @@ class Usuario implements UsuarioAdaptadorInterface{
     }
 
     /**
-     *
+     * Lidar com o retorno do atributo status
      * @return  boolean
      */
     public function getStatus() : bool
@@ -153,8 +152,8 @@ class Usuario implements UsuarioAdaptadorInterface{
     }
 
     /**
-     *
-     * @param  boolean  $status  Lidar com o status
+     * Lidar com o inicio do atributo status
+     * @param  boolean  $status
      * @return self
      */
     public function setStatus(bool $status) : Usuario
@@ -164,9 +163,7 @@ class Usuario implements UsuarioAdaptadorInterface{
     }
 
     /**
-     *
      * Converte atributos da classe em json
-     *
      * @return string
      */
     public function toJson() : string
@@ -182,7 +179,6 @@ class Usuario implements UsuarioAdaptadorInterface{
 
     /**
      * Converte um JSON para uma instancia da classe
-     *
      * @return void
      */
     public function fromJson($json) : Usuario
@@ -197,5 +193,20 @@ class Usuario implements UsuarioAdaptadorInterface{
                 ->setStatus($json['status']);
 
         return $usuario;
+    }
+
+    /**
+     * Converte atributos da classe em array
+     * @return array
+     */
+    public function paraArray() : array
+    {
+        return [
+            'nome' => $this->getNome(),
+            'email' => $this->getEmail(),
+            'password' => $this->getPassword(),
+            'ramal' => $this->getRamal(),
+            'status' => $this->getStatus()
+        ];
     }
 }

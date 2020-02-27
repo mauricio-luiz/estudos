@@ -27,7 +27,7 @@ class Repositorio implements RepositorioInterface
     }
 
     // update record in the database
-    public function update(array $data, $id)
+    public function update(array $data, int $id)
     {
         $record = $this->model->find($id);
         return $record->update($data);
