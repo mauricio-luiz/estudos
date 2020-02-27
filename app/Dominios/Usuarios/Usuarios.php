@@ -1,8 +1,8 @@
-<?php namespace App\Domain\Usuarios;
+<?php namespace App\Dominios\Usuarios;
 
-use App\Domain\Usuarios\Usuario;
+use App\Dominios\Usuarios\Usuario;
 use Illuminate\Support\Collection;
-use App\Repositories\User\UserRepository;
+use App\Repositorios\Usuario\UsuarioRepositorio;
 use App\Models\User;
 
 /**
@@ -26,16 +26,16 @@ class Usuarios{
      */
     public function __construct(User $user)
     {
-        $this->usuarioRepository = new UserRepository($user);
+        $this->usuarioRepository = new UsuarioRepositorio($user);
         $this->usuarios = collect();
     }
 
     /**
      * Retorna repositorio da classe
      *
-     * @return UserRepository
+     * @return UsuarioRepositorio
      */
-    public function repositorio() : UserRepository
+    public function repositorio() : UsuarioRepositorio
     {
         return $this->usuarioRepository;
     }
@@ -46,7 +46,7 @@ class Usuarios{
      * @param Usuario $usuario
      * @return void
      */
-    public function paginar(int $take)
+    public function paginaPor(int $take)
     {
         $usuarios = $this->repositorio()
                           ->paginate(15)
@@ -61,8 +61,6 @@ class Usuarios{
                             });
 
         $test = $this->repositorio()->paginate(15);
-        echo '<pre>'; print_r($test); exit(0);
-
 
         $this->usuarios = $this->usuarios->concat($usuarios);
         return $this;

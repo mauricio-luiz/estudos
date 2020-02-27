@@ -3,7 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
-use App\Domain\Usuarios\UsuarioAdpterInterface;
+use App\Dominios\Usuarios\UsuarioAdaptadorInterface;
 use App\Models\User;
 
 class StoreUsuario extends FormRequest
@@ -18,11 +18,11 @@ class StoreUsuario extends FormRequest
     /**
      * Lidar com o dominio do usuario
      *
-     * @var UsuarioAdpterInterface
+     * @var UsuarioAdaptadorInterface
      */
     private $usuario;
 
-    public function __construct(UsuarioAdpterInterface $usuario)
+    public function __construct(UsuarioAdaptadorInterface $usuario)
     {
         $this->rules = [
             'nome' => 'required|max:255',
@@ -54,7 +54,7 @@ class StoreUsuario extends FormRequest
         return $this->rules;
     }
 
-    public function persitir() : UsuarioAdpterInterface
+    public function persitir() : UsuarioAdaptadorInterface
     {
         $this->usuario->setNome(head($this->only(["nome"])))
                       ->setEmail(head($this->only(["email"])))

@@ -1,12 +1,12 @@
-<?php namespace App\Domain\Usuarios;
+<?php namespace App\Dominios\Usuarios;
 
-use App\Domain\Usuarios\UsuarioAdpterInterface;
-use App\Domain\Usuarios\Usuarios;
-use App\Repositories\User\UserRepository as UsuarioRepository;
+use App\Dominios\Usuarios\UsuarioAdaptadorInterface;
+use App\Dominios\Usuarios\Usuarios;
+use App\Repositorios\Usuario\UsuarioRepositorio;
 use Illuminate\Support\Collection;
 use App\Models\User;
 
-class Usuario implements UsuarioAdpterInterface{
+class Usuario implements UsuarioAdaptadorInterface{
 
     /**
      * Lidar com o nome
@@ -41,21 +41,26 @@ class Usuario implements UsuarioAdpterInterface{
     /**
      * Lidar com o Repository de Usuario
      *
-     * @var UsuarioRepository;
+     * @var UsuarioRepositorio;
      */
-    private $usuarioRepository;
+    private $usuarioRepositorio;
 
     /**
      * Lidar com a instancia da classe
      * @since 1.0.0
      */
     public function __construct(User $user){
-        $this->usuarioRepository = new UsuarioRepository($user);
+        $this->usuarioRepositorio = new UsuarioRepositorio($user);
     }
 
-    public function repositorio()
+    /**
+     * Lida com retorno do repositorio do usuario
+     *
+     * @return UsuarioRepositorio
+     */
+    public function repositorio() : UsuarioRepositorio
     {
-        return $this->usuarioRepository;
+        return $this->usuarioRepositorio;
     }
 
     /**

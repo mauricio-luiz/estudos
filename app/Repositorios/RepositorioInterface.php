@@ -1,6 +1,6 @@
-<?php namespace App\Repositories;
+<?php namespace App\Repositorios;
 
-interface RepositoryInterface {
+interface RepositorioInterface {
 
     public function all();
 

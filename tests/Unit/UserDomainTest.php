@@ -6,8 +6,8 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithoutMiddleware;
 use Tests\TestCase;
 
-use App\Domain\Usuarios\Usuario;
-use App\Domain\Usuarios\Usuarios;
+use App\Dominios\Usuarios\Usuario;
+use App\Dominios\Usuarios\Usuarios;
 use App\Models\User;
 use Illuminate\Support\Collection;
 
@@ -120,9 +120,9 @@ class UserDomainTest extends TestCase
     }
 
     public function testLista(){
-        $usuariosMockery = factory(User::class, 20)->create();
+        factory(User::class, 20)->create();
         $usuarios = new Usuarios(new User());
-        $usuarios->paginar(15);
+        $usuarios->paginaPor(15);
 
         $this->assertInstanceOf(Collection::class, $usuarios->lista());
     }

@@ -1,9 +1,9 @@
-<?php namespace App\Repositories;
+<?php namespace App\Repositorios;
 
-use App\Repositories\RepositoryInterface;
+use App\Repositorios\RepositorioInterface;
 use Illuminate\Database\Eloquent\Model;
 
-class Repository implements RepositoryInterface
+class Repositorio implements RepositorioInterface
 {
     // model property on class instances
     protected $model;

@@ -5,7 +5,7 @@ namespace Tests\Unit;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithoutMiddleware;
 use App\Models\User;
-use App\Domain\Usuarios\Usuario;
+use App\Dominios\Usuarios\Usuario;
 use Tests\TestCase;
 
 class UserControllerTest extends TestCase

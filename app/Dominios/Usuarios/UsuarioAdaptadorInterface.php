@@ -1,8 +1,15 @@
-<?php namespace App\Domain;
+<?php namespace App\Dominios\Usuarios;
 
-use App\Domain\Usuarios\Usuario;
+use App\Dominios\Usuarios\Usuario;
 
-interface DomainInterface{
+interface UsuarioAdaptadorInterface{
+
+    /**
+     * Retorna o Repositorio corrente do dominio
+     *
+     * @return void
+     */
+    public function repositorio();
 
     /**
      * Lida com o instancia da classe convertendo para JSON

@@ -13,8 +13,8 @@ class UsuarioServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        $this->app->bind("App\Domain\Usuarios\UsuarioAdpterInterface", function(){
-            return new \App\Domain\Usuarios\Usuario(new \App\Models\User());
+        $this->app->bind("App\Dominios\Usuarios\UsuarioAdaptadorInterface", function(){
+            return new \App\Dominios\Usuarios\Usuario(new \App\Models\User());
         });
     }
 
@@ -25,6 +25,6 @@ class UsuarioServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        return [\App\Domain\Usuarios\Usuario::class];
+        return [\App\Dominios\Usuarios\Usuario::class];
     }
 }

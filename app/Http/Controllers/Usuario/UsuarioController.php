@@ -4,8 +4,8 @@ namespace App\Http\Controllers\Usuario;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Domain\Usuarios\UsuarioAdpterInterface;
-use App\Domain\Usuarios\Usuarios;
+use App\Dominios\Usuarios\UsuarioAdaptadorInterface;
+use App\Dominios\Usuarios\Usuarios;
 use App\Http\Requests\StoreUsuario;
 use App\Models\User;
 use Exception;
@@ -19,7 +19,7 @@ class UsuarioController extends Controller
      */
     protected $usuario = null;
 
-    public function __construct(UsuarioAdpterInterface $usuario)
+    public function __construct(UsuarioAdaptadorInterface $usuario)
     {
         $this->usuario = $usuario;
         $this->usuarios = new Usuarios(new User());
@@ -33,7 +33,7 @@ class UsuarioController extends Controller
     public function index()
     {
         $usuarios = $this->usuarios
-                         ->paginar(15)
+                         ->paginaPor(15)
                          ->lista()
                          ->toArray();
 
