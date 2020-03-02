@@ -27,9 +27,14 @@ class UsuarioRepositorio extends Repositorio implements UsuarioRepositorioInterf
      * @param int $id
      * @return User
      */
-    public function buscaUsuarioPorId(int $id) : Usuario
+    public function buscaUsuarioPor(int $id) : Usuario
     {
         return $this->model->find($id);
+    }
+
+    public function removeUsuarioPor(int $id) : int
+    {
+        return $this->model::destroy($id);
     }
 
 }

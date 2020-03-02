@@ -14,7 +14,6 @@ class UserControllerTest extends TestCase
 
     /**
      * Lidar com a pagina inicial de usuarios.
-     *
      * @return void
      */
     public function testIndex()
@@ -34,7 +33,9 @@ class UserControllerTest extends TestCase
         $usuarios = $usuarios->concat($usuarioMock);
 
         $response = $this->get('/usuarios');
-        $response->assertStatus(200);
+	$response->assertStatus(200);
+
+	$response->dump();
 
         $response->assertExactJson([
             'status'   => true,
@@ -45,7 +46,6 @@ class UserControllerTest extends TestCase
 
     /**
      * Lidar com a pagina de criar usuario.
-     *
      * @return void
      */
     public function testCreate()
@@ -56,7 +56,6 @@ class UserControllerTest extends TestCase
 
     /**
      * Lidar com a pagina de editar usuario.
-     *
      * @return void
      */
     public function testEdit()
@@ -67,7 +66,6 @@ class UserControllerTest extends TestCase
 
     /**
      * Lidar com o metodo de salvar usuario.
-     *
      * @return void
      */
     public function testPersistirDados()
@@ -93,6 +91,10 @@ class UserControllerTest extends TestCase
         ]);
     }
 
+    /**
+     * Lidar com o metodo de atualizar usuario
+     * @return void
+     */
     public function testAtualizarDados()
     {
         $usuarioMock = factory(User::class)->create();
@@ -124,4 +126,28 @@ class UserControllerTest extends TestCase
                     'usuario' => $usuario
                 ]);
     }
+
+    public function testExcluirUsuario(){
+
+        $usuarioMock = factory(User::class)->create();
+        $usuario = new Usuario(new User());
+        $usuario->setNome($usuarioMock->nome)
+                ->setEmail($usuarioMock->email)
+                ->setPassword($usuarioMock->password)
+                ->setRamal($usuarioMock->ramal)
+                ->setStatus($usuarioMock->status);
+
+        $response = $this->withHeaders([
+            'X-Header' => 'Value',
+        ])->json('DELETE', "/usuarios/{$usuarioMock->id}");
+
+        $response->assertStatus(200)
+                ->assertJson([
+                    'status' => true,
+                    'mensagem' => 'Usuario removido com sucesso',
+                    'usuario' => $usuario->paraArray()
+                ]);
+
+    }
+
 }

@@ -127,5 +127,18 @@ class UserDomainTest extends TestCase
         $this->assertInstanceOf(Collection::class, $usuarios->lista());
     }
 
+    public function testFabricaDeUsuario()
+    {
+        $usuarioMock = factory(User::class)->create();
+        $usuario = new Usuario(new User);
+        $novoUsuario = $usuario->fabricaUsuarioPor($usuarioMock->id);
+
+        $this->assertEquals($usuarioMock->nome, $novoUsuario->getNome());
+        $this->assertEquals($usuarioMock->email, $novoUsuario->getEmail());
+        $this->assertEquals($usuarioMock->password, $novoUsuario->getPassword());
+        $this->assertEquals($usuarioMock->ramal, $novoUsuario->getRamal());
+        $this->assertEquals($usuarioMock->status, $novoUsuario->getStatus());
+    }
+
 
 }

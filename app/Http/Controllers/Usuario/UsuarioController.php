@@ -134,5 +134,21 @@ class UsuarioController extends Controller
      */
     public function destroy(int $id)
     {
+        try{
+            $usuario = $this->usuario->fabricaUsuarioPor($id);
+            $usuario->repositorio()->removeUsuarioPor($id);
+            return response()
+                ->json([
+                    'status' => true,
+                    'mensagem' => 'Usuario removido com sucesso',
+                    'usuario' => $usuario->paraArray()
+                ], 200);
+        }catch(Exception $e){
+            return response()
+                ->json([
+                    'status' => false,
+                    'mensagem' => "Erro ao remover usuario {$e->getMessage()}",
+                ], 400);
+        }
     }
 }

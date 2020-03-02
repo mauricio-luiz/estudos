@@ -3,5 +3,8 @@
 use App\Models\User as Usuario;
 
 interface UsuarioRepositorioInterface{
-    public function buscaUsuarioPorId(int $id) : Usuario;
+
+    public function buscaUsuarioPor(int $id) : Usuario;
+
+    public function removeUsuarioPor(int $id) : int;
 }

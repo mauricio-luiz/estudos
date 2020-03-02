@@ -183,7 +183,7 @@ class Usuario implements UsuarioAdaptadorInterface{
      */
     public function fromJson($json) : Usuario
     {
-        $usuario = new Usuario(new User());
+        $usuario = new Usuario(new User);
         $json = json_decode($json, true);
 
         $usuario->setNome($json['nome'])
@@ -208,5 +208,24 @@ class Usuario implements UsuarioAdaptadorInterface{
             'ramal' => $this->getRamal(),
             'status' => $this->getStatus()
         ];
+    }
+
+    /**
+     * Fabrica usuario atraves do seu id
+     *
+     * @param integer $id
+     * @return Usuario
+     */
+    public function fabricaUsuarioPor(int $id) : Usuario
+    {
+        $usuarioModel = $this->repositorio()->buscaUsuarioPor($id);
+        $usuario = new Usuario(new User);
+        $usuario->setNome($usuarioModel->nome)
+                ->setEmail($usuarioModel->email)
+                ->setPassword($usuarioModel->password)
+                ->setRamal($usuarioModel->ramal)
+                ->setStatus($usuarioModel->status);
+
+        return $usuario;
     }
 }
